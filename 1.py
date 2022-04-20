@@ -78,8 +78,10 @@ def third_response(update, context):
 
     if answer == "Да":
         update.message.reply_text("Отлично, используй команду /games", reply_markup=markup)
+
     elif answer == "Нет":
         update.message.reply_text("Ну ладно, всего доброго!", reply_markup=markup)
+
     else:
         update.message.reply_text("Буду считать что ты сказал да) пиши /games", reply_markup=markup)
     return ConversationHandler.END
@@ -124,13 +126,12 @@ def play_cows(update, context):
 
     update.message.reply_text("Введи своё число")
     update.message.reply_text(number)
+
     return 1
 
 
 def first_try(update, context):
     number1 = update.message.text
-    update.message.reply_text(number)
-    update.message.reply_text(number1)
 
     b = 0
     c = 0
@@ -143,6 +144,7 @@ def first_try(update, context):
 
     if number == number1:
         update.message.reply_text(f"Поздравляю, ты выйграл!")
+
     else:
         update.message.reply_text(f"В твоём числе - {b} быков и {c} коров")
         update.message.reply_text("Введи своё число")
@@ -163,6 +165,7 @@ def second_try(update, context):
 
     if number == number1:
         update.message.reply_text(f"Поздравляю, ты выйграл!")
+
     else:
         update.message.reply_text(f"В твоём числе - {b} быков и {c} коров")
         update.message.reply_text("Введи своё число")
@@ -183,6 +186,7 @@ def third_try(update, context):
 
     if number == number1:
         update.message.reply_text(f"Поздравляю, ты выйграл!")
+
     else:
         update.message.reply_text(f"В твоём числе - {b} быков и {c} коров")
         update.message.reply_text("Введи своё число")
@@ -203,6 +207,7 @@ def forth_try(update, context):
 
     if number == number1:
         update.message.reply_text(f"Поздравляю, ты выйграл!")
+
     else:
         update.message.reply_text(f"В твоём числе - {b} быков и {c} коров")
         update.message.reply_text("Введи своё число")
@@ -223,8 +228,51 @@ def fifth_try(update, context):
 
     if number == number1:
         update.message.reply_text(f"Поздравляю, ты выйграл!")
+
     else:
-        update.message.reply_text(f"К сожалению, ты проиграл. :(")
+        update.message.reply_text(f"В твоём числе - {b} быков и {c} коров")
+        update.message.reply_text("Введи своё число")
+        return 6
+
+
+def sixth_try(update, context):
+    number1 = update.message.text
+
+    b = 0
+    c = 0
+
+    for i in range(4):
+        if number[i] == number1[i]:
+            b += 1
+        elif number1[i] in number:
+            c += 1
+
+    if number == number1:
+        update.message.reply_text(f"Поздравляю, ты выйграл!")
+
+    else:
+        update.message.reply_text(f"В твоём числе - {b} быков и {c} коров")
+        update.message.reply_text("Введи своё число")
+        return 7
+
+
+def seventh_try(update, context):
+    number1 = update.message.text
+
+    b = 0
+    c = 0
+
+    for i in range(4):
+        if number[i] == number1[i]:
+            b += 1
+        elif number1[i] in number:
+            c += 1
+
+    if number == number1:
+        update.message.reply_text(f"Поздравляю, ты выйграл!")
+
+    else:
+        update.message.reply_text(f"К сожалению ты проиграл :(")
 
 
 def milion(update, context):
@@ -377,6 +425,7 @@ def tenth_qui(update, context):
 
     if answer == "Кобальт":
         update.message.reply_text("Поздравляю, ты выиграл миллион")
+
     else:
         update.message.reply_text("Неправильно, к сожалению ты проиграл на 10 вопросе.", reply_markup=markup)
 
@@ -393,7 +442,6 @@ def main():
     dp.add_handler(CommandHandler("rules_c", rules_c))
     dp.add_handler(CommandHandler("rules_m", rules_m))
     dp.add_handler(CommandHandler("cows", cows))
-    dp.add_handler(CommandHandler("play_cows", play_cows))
     dp.add_handler(CommandHandler("milion", milion))
 
     conv_handler = ConversationHandler(
@@ -419,7 +467,7 @@ def main():
             7: [MessageHandler(Filters.text & ~Filters.command, seventh_qui)],
             8: [MessageHandler(Filters.text & ~Filters.command, eighth_qui)],
             9: [MessageHandler(Filters.text & ~Filters.command, ninth_qui)],
-            10: [MessageHandler(Filters.text & ~Filters.command, tenth_qui)],
+            10: [MessageHandler(Filters.text & ~Filters.command, tenth_qui)]
         },
 
         fallbacks=[CommandHandler('stop', stop)]
@@ -433,6 +481,8 @@ def main():
             3: [MessageHandler(Filters.text & ~Filters.command, third_try)],
             4: [MessageHandler(Filters.text & ~Filters.command, forth_try)],
             5: [MessageHandler(Filters.text & ~Filters.command, fifth_try)],
+            6: [MessageHandler(Filters.text & ~Filters.command, sixth_try)],
+            7: [MessageHandler(Filters.text & ~Filters.command, seventh_try)]
         },
 
         fallbacks=[CommandHandler('stop', stop)]
